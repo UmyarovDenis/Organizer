@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1A961B8E-27F2-48E2-A73A-49DFE75D6DC2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DataTransferService</RootNamespace>
+    <AssemblyName>DataTransferService</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>C:\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=8.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AuthorizationNode\AuthorizationService.cs" />
+    <Compile Include="DataAccessLayer\DataAccessService.cs" />
+    <Compile Include="DataAccessLayer\Mapping\Mutator.cs" />
+    <Compile Include="DataAccessLayer\Models\City.cs" />
+    <Compile Include="DataAccessLayer\Models\Contact.cs" />
+    <Compile Include="DataAccessLayer\Models\Mail.cs" />
+    <Compile Include="DataAccessLayer\Models\Organization.cs" />
+    <Compile Include="DataAccessLayer\Models\PolitermUsers.cs" />
+    <Compile Include="DataAccessLayer\Models\Region.cs" />
+    <Compile Include="DataAccessLayer\Models\Task.cs" />
+    <Compile Include="DataAccessLayer\Models\User.cs" />
+    <Compile Include="DataAccessLayer\Repositories\CityRepository.cs" />
+    <Compile Include="DataAccessLayer\Repositories\ContactRepository.cs" />
+    <Compile Include="DataAccessLayer\Repositories\EFRepository.cs" />
+    <Compile Include="DataAccessLayer\Repositories\Interfaces\ICityRepository.cs" />
+    <Compile Include="DataAccessLayer\Repositories\Interfaces\IContactRepository.cs" />
+    <Compile Include="DataAccessLayer\Repositories\Interfaces\IGenericRepository.cs" />
+    <Compile Include="DataAccessLayer\Repositories\Interfaces\IMailRepository.cs" />
+    <Compile Include="DataAccessLayer\Repositories\Interfaces\IOrganizationRepository.cs" />
+    <Compile Include="DataAccessLayer\Repositories\Interfaces\IRegionRepository.cs" />
+    <Compile Include="DataAccessLayer\Repositories\Interfaces\IRepository.cs" />
+    <Compile Include="DataAccessLayer\Repositories\Interfaces\ITaskRepository.cs" />
+    <Compile Include="DataAccessLayer\Repositories\Interfaces\IUserRepository.cs" />
+    <Compile Include="DataAccessLayer\Repositories\MailRepository.cs" />
+    <Compile Include="DataAccessLayer\Repositories\OrganizationRepository.cs" />
+    <Compile Include="DataAccessLayer\Repositories\RegionRepository.cs" />
+    <Compile Include="DataAccessLayer\Repositories\TaskRepository.cs" />
+    <Compile Include="DataAccessLayer\Repositories\UserRpository.cs" />
+    <Compile Include="DataAccessLayer\UnitOfWork\Context.cs" />
+    <Compile Include="DataAccessLayer\UnitOfWork\DataProcessor.cs" />
+    <Compile Include="DataAccessLayer\UnitOfWork\IDataProcessor.cs" />
+    <Compile Include="Logger\Log.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proxies\NotifyProxyService.cs" />
+    <Compile Include="SqlData\SqlDataService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ContractLibrary\ContractLibrary.csproj">
+      <Project>{8db34977-dbeb-42b8-96fd-fbcd3074163f}</Project>
+      <Name>ContractLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

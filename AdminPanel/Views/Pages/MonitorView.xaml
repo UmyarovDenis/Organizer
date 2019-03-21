@@ -1,0 +1,43 @@
+﻿<Page x:Class="AdminPanel.Views.Pages.MonitorView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AdminPanel.Views.Pages"
+      xmlns:lm="clr-namespace:Itenso.Windows.Controls.ListViewLayout;assembly=Itenso.Windows.Controls.ListViewLayout"
+      mc:Ignorable="d"
+      d:DesignHeight="450" 
+      d:DesignWidth="800"
+      Background="{StaticResource WhiteSmoke}"
+      Title="MonitorView">
+    <Grid Margin="10">
+        <ListView ItemsSource="{Binding OperationList}"
+                  Background="WhiteSmoke"
+                  lm:ListViewLayoutManager.Enabled="True">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding TimeStamp}"
+                                    Width="100"
+                                    Header="Время"
+                                    HeaderContainerStyle="{StaticResource GridHeaderStyle}"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding User.Host.LocalIPAddress}"
+                                    Header="IP-адрес"
+                                    HeaderContainerStyle="{StaticResource GridHeaderStyle}"
+                                    Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding User.FIO}"
+                                    Header="Имя пользователя"
+                                    HeaderContainerStyle="{StaticResource GridHeaderStyle}"
+                                    Width="200"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Action}"
+                                    Header="Событие"
+                                    HeaderContainerStyle="{StaticResource GridHeaderStyle}"
+                                    Width="170"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Details}"
+                                    lm:RangeColumn.IsFillColumn="True"
+                                    Header="Детали"
+                                    HeaderContainerStyle="{StaticResource GridHeaderStyle}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Page>

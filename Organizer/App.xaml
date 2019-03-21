@@ -1,0 +1,24 @@
+﻿<Application x:Class="Organizer.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Organizer"
+             Startup="Application_Startup">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Views/Styles/Colors.xaml"/>
+                <ResourceDictionary Source="Views/Styles/ButtonStyles.xaml"/>
+                <ResourceDictionary Source="Views/Styles/ImageStyles.xaml"/>
+                <ResourceDictionary Source="Views/Styles/LabelStyles.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/OrganizerStyles;component/Common/Colors.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/OrganizerStyles;component/Common/Buttons.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/OrganizerStyles;component/Common/Labels.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/OrganizerStyles;component/Common/DatePickers.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/OrganizerStyles;component/Common/Borders.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/OrganizerStyles;component/Common/Lists.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/OrganizerStyles;component/Common/Windows.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/OrganizerStyles;component/Common/Menu.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,122 @@
+﻿<Window x:Class="Organizer.Views.AuthorizationView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Organizer.Views"
+        mc:Ignorable="d"
+        xmlns:helpers="clr-namespace:Organizer.Views.Core.Helpers"
+        Width="350"
+        Height="500"
+        AllowsTransparency="True" 
+        WindowStyle="None" 
+        Background="Transparent"
+        helpers:WindowHelper.DialogResult="True"
+        WindowStartupLocation="CenterScreen">
+    <Window.InputBindings>
+        <KeyBinding Key="Return"
+                    Command="{Binding AuthorizeCommand}"/>
+    </Window.InputBindings>
+    <Window.Resources>
+        <Style x:Key="CloseButton" TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <ContentPresenter/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Window.Template>
+        <ControlTemplate>
+            <Border CornerRadius="10"
+                    BorderThickness="5">
+                <Border.Effect>
+                    <DropShadowEffect Opacity="1"
+                                      ShadowDepth="2"
+                                      BlurRadius="6"
+                                      RenderingBias="Quality"
+                                      Direction="270"
+                                      Color="{StaticResource GraphiteColor}"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="0.7*"/>
+                    </Grid.RowDefinitions>
+                    <Grid MouseLeftButtonDown="DragWindow">
+                        <Grid.Background>
+                            <LinearGradientBrush StartPoint="0.5, 0.1" EndPoint="0.5, 1">
+                                <GradientStop Color="{StaticResource GraphiteColor}" Offset="0" />
+                                <GradientStop Color="{StaticResource LightGraphiteColor}" Offset="1" />
+                            </LinearGradientBrush>
+                        </Grid.Background>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Button Style="{StaticResource CloseButton}"
+                                VerticalAlignment="Top" 
+                                HorizontalAlignment="Right"
+                                IsTabStop="False"
+                                Click="CloseButtonClick">
+                            <Image Source="pack://application:,,,/OrganizerStyles;component/Resources/cross.png"
+                                   Width="10"/>
+                        </Button>
+                        <Image Grid.Row="1"
+                               VerticalAlignment="Center"
+                               Margin="0, 30, 0, 0"
+                               Source="pack://application:,,,/OrganizerStyles;component/Resources/home.png"
+                               Width="55"/>
+                    </Grid>
+                    <Grid Grid.Row="1" Background="LightGray">
+                    </Grid>
+                    <Border Grid.RowSpan="2" Background="{StaticResource WhiteSmoke}"
+                            CornerRadius="10"
+                            VerticalAlignment="Bottom"
+                            Margin="20, 0, 20, 80" 
+                            Height="240">
+                        <Border.Effect>
+                            <DropShadowEffect Opacity="1" 
+                                              ShadowDepth="2"
+                                              Direction="270"
+                                              BlurRadius="6"/>
+                        </Border.Effect>
+                        <Grid>
+                            <TextBlock Text="Вход в систему"
+                                       FontSize="18"
+                                       HorizontalAlignment="Center"
+                                       Margin="0, 20, 0, 0"/>
+                            <StackPanel VerticalAlignment="Center"
+                                        FocusManager.FocusedElement="{Binding ElementName=LoginTextBox}">
+                                <TextBlock Text="Логин" Margin="15, 0, 0, 0"
+                                           Foreground="Gray"/>
+                                <TextBox x:Name="LoginTextBox" Style="{StaticResource StandartTextBox}"
+                                         Text="{Binding Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock Text="Пароль" Margin="15, 0, 0, 0"
+                                           Foreground="Gray"/>
+                                <TextBox x:Name="PasswordTextBox" Style="{StaticResource StandartTextBox}"
+                                         Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                    <Button Grid.RowSpan="2"
+                            VerticalAlignment="Bottom"
+                            Margin="0, 0, 0, 65"
+                            IsTabStop="False"
+                            Style="{StaticResource StandartButtons}"
+                            Content="Вход"
+                            helpers:ButtonHelper.DialogResult="True"
+                            Command="{Binding AuthorizeCommand}"/>
+                </Grid>
+            </Border>
+        </ControlTemplate>
+    </Window.Template>
+    <Grid Margin="5">
+    </Grid>
+</Window>

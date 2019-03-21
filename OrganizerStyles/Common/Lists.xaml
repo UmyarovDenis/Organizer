@@ -1,0 +1,202 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:OrganizerStyles.Common">
+
+    <Style x:Key="ListItems" TargetType="{x:Type ListViewItem}">
+        <Setter Property="Height" Value="80"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                    <Border Name="Border">
+                        <ContentPresenter/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="true">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource LightDarkSea}"/>
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True" />
+                                <Condition Property="IsSelected" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="Border" Property="Background" Value="{StaticResource LightGraphite}"/>
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ServiceItems" TargetType="{x:Type ListViewItem}">
+        <Setter Property="Height" Value="Auto"/>
+        <Setter Property="Foreground" Value="{StaticResource Graphite}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                    <Border Name="Border" SnapsToDevicePixels="True"
+                            Margin="5, 10, 10, 10"
+                            CornerRadius="10">
+                        <Border.Background>
+                            <SolidColorBrush Color="WhiteSmoke"/>
+                        </Border.Background>
+                        <Border.Effect>
+                            <DropShadowEffect ShadowDepth="3"
+                                              Color="{StaticResource GraphiteColor}"
+                                              Opacity="0.85"
+                                              Direction="270"
+                                              BlurRadius="6"/>
+                        </Border.Effect>
+                        <ContentPresenter/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CustomListBoxItems" TargetType="{x:Type ListBoxItem}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Border Name="Border" SnapsToDevicePixels="True"
+                            BorderBrush="{StaticResource DarkSea}"
+                            Padding="5">
+                        <ContentPresenter/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="true">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource LightDarkSea}"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True" />
+                                <Condition Property="IsSelected" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="Border" Property="Background" Value="{StaticResource PaleBlue}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="GridHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Foreground" Value="{StaticResource WhiteSmoke}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                    <Border Name="HeaderBorder"
+                            BorderThickness="1 1 0 1">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0.5,0.2" EndPoint="0.5,1">
+                                <GradientStop Color="{StaticResource PaleBlueColor}" Offset="0" />
+                                <GradientStop Color="{StaticResource DarkSeaColor}" Offset="1" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.BorderBrush>
+                            <LinearGradientBrush StartPoint="0.5,0.2" EndPoint="0.5,1">
+                                <GradientStop Color="{StaticResource DarkSeaColor}" Offset="0" />
+                                <GradientStop Color="{StaticResource PaleBlueColor}" Offset="1" />
+                            </LinearGradientBrush>
+                        </Border.BorderBrush>
+                        <ContentPresenter VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                          HorizontalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="HeaderBorder" Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0.5,0.4" EndPoint="0.5,1">
+                                        <GradientStop Color="{StaticResource PaleBlueColor}" Offset="0" />
+                                        <GradientStop Color="{StaticResource DarkSeaColor}" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="HeaderBorder" Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{StaticResource LightDarkSeaColor}"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="AccountItem" TargetType="{x:Type ListBoxItem}">
+        <Setter Property="Height" Value="Auto"/>
+        <Setter Property="Foreground" Value="{StaticResource Graphite}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Border Name="MainBorder" Background="WhiteSmoke"
+                            BorderBrush="{StaticResource Graphite}"
+                            CornerRadius="5"
+                            Margin="10, 0, 10, 10"
+                            Padding="10, 5, 5, 5">
+                        <Border.Effect>
+                            <DropShadowEffect Color="{StaticResource DeepBlueColor}"
+                                              ShadowDepth="3"
+                                              Direction="270"
+                                              BlurRadius="6"
+                                              Opacity="0.85"/>
+                        </Border.Effect>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Image Name="Image" Source="{StaticResource User}" Width="40"/>
+                            <ContentPresenter Grid.Column="1"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="MainBorder" Property="Background" Value="{StaticResource LightDarkSea}"/>
+                            <Setter TargetName="Image" Property="Source" Value="{StaticResource SelectedUser}"/>
+                            <Setter Property="Foreground" Value="{StaticResource WhiteSmoke}"/>
+                            <Setter TargetName="MainBorder" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect ShadowDepth="1"
+                                                      BlurRadius="6"
+                                                      Direction="270"
+                                                      Opacity="1"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                                <Condition Property="IsSelected" Value="False"/>
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="MainBorder" Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0.5, 0" EndPoint="0.5, 1">
+                                            <GradientStop Color="{StaticResource PaleBlueColor}" Offset="0"/>
+                                            <GradientStop Color="{StaticResource LightGraphiteColor}" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="Image" Property="Source" Value="{StaticResource SelectedUser}"/>
+                                <Setter Property="Foreground" Value="{StaticResource WhiteSmoke}"/>
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

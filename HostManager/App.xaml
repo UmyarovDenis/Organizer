@@ -1,0 +1,15 @@
+﻿<Application x:Class="HostManager.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:HostManager"
+             StartupUri="Views/MainView.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/OrganizerStyles;component/Common/Colors.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/OrganizerStyles;component/Common/Buttons.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/OrganizerStyles;component/Common/Windows.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Organizer.Views.Styles">
+    <Color x:Key="SmokeWhiteColor">#E9EAEB</Color>
+    <SolidColorBrush x:Key="SmokeWhiteBrush" Color="#E9EAEB"/>
+
+    <Color x:Key="DeepBlueColor">#293651</Color>
+    <SolidColorBrush x:Key="DeepBlueBrush" Color="#293651"/>
+
+    <Color x:Key="GraphiteColor">#262426</Color>
+    <SolidColorBrush x:Key="GraphiteBrush" Color="#262426"/>
+
+    <Color x:Key="LightBlueColor">#81A0C0</Color>
+    <SolidColorBrush x:Key="LightBlueBrush" Color="#81A0C0"/>
+</ResourceDictionary>

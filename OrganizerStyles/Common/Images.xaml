@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:OrganizerStyles.Common">
+
+    <ImageSource x:Key="User">pack://application:,,,/OrganizerStyles;component/Resources/user.png</ImageSource>
+    <ImageSource x:Key="SelectedUser">pack://application:,,,/OrganizerStyles;component/Resources/selectedUser.png</ImageSource>
+    <ImageSource x:Key="Plus">pack://application:,,,/OrganizerStyles;component/Resources/plus.png</ImageSource>
+    <ImageSource x:Key="SelectedPlus">pack://application:,,,/OrganizerStyles;component/Resources/selectedPlus.png</ImageSource>
+    <ImageSource x:Key="Edit">pack://application:,,,/OrganizerStyles;component/Resources/edit.png</ImageSource>
+    <ImageSource x:Key="SelectedEdit">pack://application:,,,/OrganizerStyles;component/Resources/selectedEdit.png</ImageSource>
+    <ImageSource x:Key="Delete">pack://application:,,,/OrganizerStyles;component/Resources/delete.png</ImageSource>
+    <ImageSource x:Key="SelectedDelete">pack://application:,,,/OrganizerStyles;component/Resources/selectedDelete.png</ImageSource>
+</ResourceDictionary>

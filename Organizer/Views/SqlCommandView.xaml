@@ -1,0 +1,240 @@
+﻿<Window x:Class="Organizer.Views.SqlCommandView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Organizer.Views"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterOwner"
+        Background="{StaticResource SmokeWhiteBrush}"
+        Style="{StaticResource ResizeWindow}"
+        Title="Sql запрос" 
+        Height="650" 
+        Width="1000">
+    <Window.InputBindings>
+        <KeyBinding Key="F5"
+                    Command="{Binding ExecuteSqlCommand}"/>
+        <KeyBinding Gesture="ALT+E"
+                    Command="{Binding ExecuteSqlCommand}"/>
+        <KeyBinding Gesture="CTRL+S"
+                    Command="{Binding SafeSqlExpressionCommand}"/>
+        <KeyBinding Gesture="CTRL+O"
+                    Command="{Binding LoadSqlExpressionCommand}"/>
+    </Window.InputBindings>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding WindowOnLoadCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal"
+                    Background="{StaticResource Graphite}">
+            <Menu Background="Transparent">
+                <MenuItem Header="Файл" Height="30"
+                          Style="{StaticResource CustomDarkMenuItem}"
+                          HorizontalAlignment="Left">
+                    <MenuItem Header="Открыть"
+                              Style="{StaticResource CustomDarkMenuItem}"
+                              Command="{Binding LoadSqlExpressionCommand}">
+                        <MenuItem.Icon>
+                            <Image Width="20" Source="pack://application:,,,/Resources/opened_folder.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Сохранить"
+                              Style="{StaticResource CustomDarkMenuItem}"
+                              Command="{Binding SafeSqlExpressionCommand}">
+                        <MenuItem.Icon>
+                            <Image Width="20" Source="pack://application:,,,/Resources/addFile.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator Background="{StaticResource WhiteSmoke}"></Separator>
+                    <MenuItem Header="Выход" 
+                              Style="{StaticResource CustomDarkMenuItem}"
+                              Click="CloseWindow">
+                    </MenuItem>
+                </MenuItem>
+            </Menu>
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"
+                       Background="Gray"/>
+            <Button Height="25" Background="Transparent"
+                    Margin="5, 0"
+                    Width="25"
+                    BorderThickness="0"
+                    Style="{StaticResource BackgroundButton}"
+                    ToolTip="Открыть"
+                    Command="{Binding LoadSqlExpressionCommand}">
+                <Image Source="pack://application:,,,/Resources/opened_folder.png"
+                       Width="20"/>
+            </Button>
+            <Button Height="25" Background="Transparent"
+                    Margin="0, 0, 5, 0"
+                    Width="25"
+                    BorderThickness="0"
+                    Style="{StaticResource BackgroundButton}"
+                    ToolTip="Сохранить"
+                    Command="{Binding SafeSqlExpressionCommand}">
+                <Image Source="pack://application:,,,/Resources/addFile.png"
+                       Width="20"/>
+            </Button>
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"
+                       Background="Gray"/>
+            <Button Height="25" Background="Transparent"
+                    Style="{StaticResource BackgroundButton}"
+                    BorderThickness="0"
+                    Command="{Binding ExecuteSqlCommand}">
+                <StackPanel Orientation="Horizontal" Margin="0, 0, 6, 0">
+                    <Image Source="pack://application:,,,/Resources/execute.png"/>
+                    <TextBlock Text="Выполнить" VerticalAlignment="Center"
+                               FontSize="14"
+                               Foreground="{StaticResource WhiteSmoke}"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="0.5*"/>
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0"
+                        Background="WhiteSmoke"
+                        Style="{StaticResource BorderPanel}" Margin="10">
+                    <ScrollViewer Margin="5"
+                                  VerticalScrollBarVisibility="Auto"
+                                  HorizontalScrollBarVisibility="Auto">
+                        <TextBox TextWrapping="Wrap" 
+                                 BorderThickness="0"
+                                 Margin="5"
+                                 Background="Transparent"
+                                 AcceptsReturn="True"
+                                 Text="{Binding SqlExpression, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </ScrollViewer>
+                </Border>
+                <GridSplitter Grid.Row="1" Height="3"
+                      ShowsPreview="False"
+                      Background="LightGray"
+                      HorizontalAlignment="Stretch"/>
+                <Border Grid.Row="2"
+                        Background="WhiteSmoke"
+                        Style="{StaticResource BorderPanel}" Margin="10">
+                    <TabControl Margin="5" SelectedIndex="{Binding ActiveTabIndex}"
+                                Background="Transparent">
+                        <TabItem Header="Ответ"
+                                 Background="Transparent">
+                            <DataGrid ItemsSource="{Binding DataResponse}"
+                                      CanUserAddRows="False"
+                                      CanUserDeleteRows="False">
+                                
+                            </DataGrid>
+                        </TabItem>
+                        <TabItem Header="Сообщения">
+                            <TextBlock TextWrapping="Wrap"
+                                       Margin="5"
+                                       FontSize="14"
+                                       Foreground="Red"
+                                       Text="{Binding ErrorMessage}"/>
+                        </TabItem>
+                    </TabControl>
+                </Border>
+            </Grid>
+            <GridSplitter Grid.Column="1" Width="3"
+                          ShowsPreview="False"
+                          Background="LightGray"
+                          HorizontalAlignment="Center"/>
+            <Grid Grid.Column="2">
+                <Border Style="{StaticResource BorderPanel}" Margin="10"
+                        Background="WhiteSmoke">
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Margin="0, 0, 0, 5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="70"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="Источник"/>
+                                <TextBlock Grid.Column="1" Margin="5, 0, 0, 0"
+                                           Text="{Binding SourceName}"/>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="70"/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Запросы" VerticalAlignment="Center"/>
+                                <ComboBox Grid.Column="1" Margin="5"
+                                          ItemsSource="{Binding Queries}"
+                                          SelectedItem="{Binding SelectedQuery}"
+                                          DisplayMemberPath="Name">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <i:InvokeCommandAction Command="{Binding SelectQueryCommand}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </ComboBox>
+                                <Button Grid.Column="2" Width="22" Height="22"
+                                        ToolTip="Выполнить"
+                                        Command="{Binding ExecuteSqlCommand}">
+                                    <Image Source="pack://application:,,,/Resources/execute.png"/>
+                                </Button>
+                            </Grid>
+                            <ListBox Grid.Row="2" ItemsSource="{Binding Tables}"
+                                     SelectedItem="{Binding SelectedTable}"
+                                     Background="Transparent"
+                                     Margin="0, 0, 0, 11">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="pack://application:,,,/Resources/table_icon.png"
+                                                    Width="30" Height="35"/>
+                                            <TextBlock Text="{Binding TableName}" 
+                                                        VerticalAlignment="Center"
+                                                        Margin="5"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Колонки" Margin="0, 20, 0, 5"/>
+                            <ListBox Grid.Row="1" ItemsSource="{Binding SelectedTable.ColumnNames}"
+                                     Background="Transparent">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

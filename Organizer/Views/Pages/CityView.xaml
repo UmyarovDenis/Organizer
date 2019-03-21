@@ -1,0 +1,272 @@
+﻿<Page x:Class="Organizer.Views.Pages.CityView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+      xmlns:local="clr-namespace:Organizer.Views.Pages"
+      xmlns:conv="clr-namespace:Organizer.Views.Core.Converters"
+      mc:Ignorable="d"
+      Background="Transparent"
+      d:DesignHeight="600"
+      d:DesignWidth="800"
+      Title="CityView">
+    <Page.Resources>
+        <conv:ContactCardWidthConverter x:Key="LengthConv"/>
+        <Style x:Key="headerLabels">
+            <Setter Property="TextBlock.FontSize" Value="14"/>
+            <Setter Property="TextBlock.FontWeight" Value="Bold"/>
+        </Style>
+        <Style x:Key="descriptionLabels">
+            <Setter Property="TextBlock.FontSize" Value="12"/>
+            <Setter Property="TextBlock.FontWeight" Value="DemiBold"/>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="0.8*"/>
+        </Grid.RowDefinitions>
+        <Border Style="{StaticResource BorderPanel}"
+                Margin="10">
+            <Grid Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Style="{StaticResource ResourceKey=headerLabels}"
+                               Text="{Binding SelectedCity.Name}"/>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                               Style="{StaticResource ResourceKey=descriptionLabels}">
+                        <Run Text="Регион "/>
+                        <Run Text="{Binding SelectedCity.Region.Name}"/>
+                        </TextBlock>
+                        <TextBlock Grid.Column="1"
+                               Style="{StaticResource ResourceKey=descriptionLabels}">
+                        <Run Text="Местное время "/>
+                        <Run Text="{Binding SelectedCity.Region.Name}"/>
+                        </TextBlock>
+                    </Grid>
+                </Grid>
+                <GroupBox Grid.Row="1" 
+                      Header="Организации"
+                      Margin="0, 20, 0, 0"
+                      Style="{StaticResource MainGroupBoxes}">
+                    <Grid Margin="0, 20, 0, 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <ListBox Grid.Column="1"
+                                 Background="Transparent"
+                                 x:Name="OrgList"
+                                 ItemsSource="{Binding Organizations}"
+                                 SelectedItem="{Binding SelectedOrganization}">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem" BasedOn="{StaticResource CustomListBoxItems}"/>
+                            </ListBox.ItemContainerStyle>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Name}" Style="{StaticResource ResourceKey=headerLabels}"/>
+                                        <TextBlock Style="{StaticResource ResourceKey=descriptionLabels}">
+                                        <Run Text="Email: "/>
+                                        <Run Text="{Binding Email, Mode=OneWay}"/>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseDoubleClick">
+                                    <i:InvokeCommandAction Command="{Binding ChangeOrganizationCommand}"
+                                                       CommandParameter="{Binding SelectedOrganization}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <ListBox.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Изменить запись"
+                                          Command="{Binding ChangeOrganizationCommand}"
+                                          CommandParameter="{Binding SelectedOrganization}"/>
+                                    <MenuItem Header="Удалить запись"
+                                          Command="{Binding RemoveOrganizationCommand}"
+                                          CommandParameter="{Binding SelectedOrganization}"/>
+                                    <MenuItem Header="Отправить Email"
+                                          Command="{Binding SendOrganizationMailCommand}"
+                                          CommandParameter="{Binding SelectedOrganization.Email}"/>
+                                </ContextMenu>
+                            </ListBox.ContextMenu>
+                        </ListBox>
+                        <StackPanel Grid.Column="0"
+                            Margin="0, 0, 5, 0">
+                            <Button Style="{StaticResource OrganizerButtons}"
+                                Command="{Binding AddNewOrganizationCommand}">
+                                <Image Source="pack://application:,,,/Resources/addOrg.png"/>
+                            </Button>
+                            <Button Style="{StaticResource OrganizerButtons}"
+                                Command="{Binding ChangeOrganizationCommand}"
+                                CommandParameter="{Binding ElementName=OrgList, Path=SelectedItem}">
+                                <Image Source="pack://application:,,,/Resources/changeOrg.png"
+                                       Style="{StaticResource GrayScale}"/>
+                            </Button>
+                            <Button Style="{StaticResource OrganizerButtons}"
+                                Command="{Binding RemoveOrganizationCommand}"
+                                CommandParameter="{Binding ElementName=OrgList, Path=SelectedItem}">
+                                <Image Source="pack://application:,,,/Resources/removeOrg.png"
+                                       Style="{StaticResource GrayScale}"/>
+                            </Button>
+                            <Button Style="{StaticResource OrganizerButtons}"
+                                Command="{Binding SendOrganizationMailCommand}"
+                                CommandParameter="{Binding ElementName=OrgList, Path=SelectedItem.Email}">
+                                <Image Source="pack://application:,,,/Resources/sendOrgMail.png"
+                                       Style="{StaticResource GrayScale}"/>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </Border>
+        <GridSplitter Grid.Row="1" Height="3"
+                      ShowsPreview="False"
+                      Background="White"
+                      HorizontalAlignment="Stretch"/>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="{Binding SelectedContact, Converter={StaticResource LengthConv}}"
+                                  x:Name="contactColumn"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" Margin="10"
+                    Style="{StaticResource BorderPanel}">
+                <GroupBox Header="Контакты" 
+                          Style="{StaticResource MainGroupBoxes}"
+                          Margin="5">
+                    <Grid Margin="0, 20, 0, 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <ListBox Grid.Column="1"
+                                     Background="Transparent"
+                                     x:Name="ContactList" 
+                                     ItemsSource="{Binding Contacts}"
+                                     SelectedItem="{Binding SelectedContact}">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem" BasedOn="{StaticResource CustomListBoxItems}"/>
+                            </ListBox.ItemContainerStyle>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <TextBlock Style="{StaticResource ResourceKey=headerLabels}">
+                                                <Run Text="ФИО: "/>
+                                                <Run Text="{Binding Name}"/>
+                                        </TextBlock>
+                                        <TextBlock Style="{StaticResource ResourceKey=descriptionLabels}">
+                                                <Run Text="Email: "/>
+                                                <Run Text="{Binding Email}"/>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                            <ListBox.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Изменить запись"
+                                          Command="{Binding ChangeContactCommand}"
+                                          CommandParameter="{Binding SelectedContact}"/>
+                                    <MenuItem Header="Удалить запись"
+                                          Command="{Binding RemoveContactCommand}"
+                                          CommandParameter="{Binding SelectedContact}"/>
+                                    <MenuItem Header="Отправить Email"
+                                          Command="{Binding SendContactMailCommand}"
+                                          CommandParameter="{Binding SelectedContact}"/>
+                                </ContextMenu>
+                            </ListBox.ContextMenu>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseDoubleClick">
+                                    <i:InvokeCommandAction Command="{Binding ChangeContactCommand}"
+                                                       CommandParameter="{Binding ElementName=ContactList, Path=SelectedItem}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ListBox>
+                        <StackPanel Grid.Column="0"
+                                        Margin="0, 0, 5, 0">
+                            <Button Style="{StaticResource OrganizerButtons}"
+                                ToolTip="Добавить контакт"
+                                Command="{Binding AddNewContactCommand}">
+                                <Image Source="pack://application:,,,/Resources/addContact.png"
+                                           Style="{StaticResource GrayScale}"/>
+                            </Button>
+                            <Button Style="{StaticResource OrganizerButtons}"
+                                ToolTip="Редактировать контакт"
+                                Command="{Binding ChangeContactCommand}"
+                                CommandParameter="{Binding ElementName=ContactList, Path=SelectedItem}">
+                                <Image Source="pack://application:,,,/Resources/changeContact.png"
+                                           Style="{StaticResource GrayScale}"/>
+                            </Button>
+                            <Button Style="{StaticResource OrganizerButtons}"
+                                ToolTip="Удалить контакт"
+                                Command="{Binding RemoveContactCommand}"
+                                CommandParameter="{Binding ElementName=ContactList, Path=SelectedItem}">
+                                <Image Source="pack://application:,,,/Resources/removeContact.png"
+                                           Style="{StaticResource GrayScale}"/>
+                            </Button>
+                            <Button Style="{StaticResource OrganizerButtons}"
+                                ToolTip="Отправить Email"
+                                Command="{Binding SendContactMailCommand}"
+                                CommandParameter="{Binding ElementName=ContactList, Path=SelectedItem.Email}">
+                                <Image Source="pack://application:,,,/Resources/sendContactMail.png"
+                                           Style="{StaticResource GrayScale}"/>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </GroupBox>
+            </Border>
+            <Border Grid.Column="1" Margin="0, 10, 10, 10"
+                    Style="{StaticResource BorderPanel}">
+                <GroupBox Header="Сотрудник"
+                          Margin="5"
+                          Style="{StaticResource MainGroupBoxes}">
+                    <Grid Margin="5" DataContext="{Binding SelectedContact}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="90"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="ФИО"
+                               Style="{StaticResource ContactLabels}"/>
+                        <TextBlock Grid.Column="0" Grid.Row="1" Text="Телефон"
+                               Style="{StaticResource ContactLabels}"/>
+                        <TextBlock Grid.Column="0" Grid.Row="2" Text="Email"
+                               Style="{StaticResource ContactLabels}"/>
+                        <TextBlock Grid.Column="0" Grid.Row="3" Text="Должность"
+                               Style="{StaticResource ContactLabels}"/>
+
+                        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Name}"
+                               Style="{StaticResource ContactLabels}"/>
+                        <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Phone}"
+                               Style="{StaticResource ContactLabels}"/>
+                        <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Email}"
+                               Style="{StaticResource ContactLabels}"/>
+                        <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding Position}"
+                               Style="{StaticResource ContactLabels}"/>
+                    </Grid>
+                </GroupBox>
+            </Border>
+        </Grid>
+    </Grid>
+</Page>
